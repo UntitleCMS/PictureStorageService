@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace PictureStorageService.Controllers;
@@ -8,17 +9,29 @@ namespace PictureStorageService.Controllers;
 [ApiController]
 public class ReadImageController : ControllerBase
 {
-    [HttpGet("{img-id}")]
-    public IActionResult GetImgById([FromRoute(Name ="img-id")] string id)
+
+    private readonly IContentTypeProvider _contentTypeProvider;
+
+    public ReadImageController(IContentTypeProvider contentTypeProvider)
+    {
+        _contentTypeProvider = contentTypeProvider;
+    }
+
+    [HttpGet("{img-name}")]
+    public IActionResult GetImgById([FromRoute(Name ="img-name")] string img_name)
     {
 
         string path = 
             $""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-             /img-storage/{id}
+             /img-storage/{img_name}
              """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""";
 
         FileStream fsSource = new(path, FileMode.Open, FileAccess.Read);
 
-        return File(fsSource, Image.Jpeg);
+        _contentTypeProvider.TryGetContentType(path, out string? contentType);
+
+        return contentType is null
+            ? NotFound()
+            : File(fsSource, contentType);
     }
 }
