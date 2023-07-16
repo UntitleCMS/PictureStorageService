@@ -6,9 +6,9 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["PictureStorageService/PictureStorageService.csproj", "PictureStorageService/"]
+COPY ["src/PictureStorageService/PictureStorageService.csproj", "PictureStorageService/"]
 RUN dotnet restore "PictureStorageService/PictureStorageService.csproj"
-COPY . .
+COPY ./src .
 WORKDIR "/src/PictureStorageService"
 RUN dotnet build "PictureStorageService.csproj" -c Release -o /app/build
 
