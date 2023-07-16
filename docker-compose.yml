@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  picturestorageservice:
+    image: ${DOCKER_REGISTRY-}picturestorageservice
+    build:
+      context: .
+      dockerfile: src/PictureStorageService/Dockerfile

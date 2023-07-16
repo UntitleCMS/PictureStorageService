@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PictureStorageService", "PictureStorageService\PictureStorageService.csproj", "{32397824-AC67-4013-82BC-6AC31EFAA763}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PictureStorageService", "src\PictureStorageService\PictureStorageService.csproj", "{32397824-AC67-4013-82BC-6AC31EFAA763}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{A709251C-F536-44F2-84F2-51728C4030DD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0CDEC8F3-ADB9-4A5F-9611-91517C926585}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +19,16 @@ Global
 		{32397824-AC67-4013-82BC-6AC31EFAA763}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32397824-AC67-4013-82BC-6AC31EFAA763}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32397824-AC67-4013-82BC-6AC31EFAA763}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A709251C-F536-44F2-84F2-51728C4030DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A709251C-F536-44F2-84F2-51728C4030DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A709251C-F536-44F2-84F2-51728C4030DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A709251C-F536-44F2-84F2-51728C4030DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{32397824-AC67-4013-82BC-6AC31EFAA763} = {0CDEC8F3-ADB9-4A5F-9611-91517C926585}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {40232111-257C-45F4-9E3F-23AE42C02B36}
