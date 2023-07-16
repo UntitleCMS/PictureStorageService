@@ -6,3 +6,18 @@ services:
     build:
       context: .
       dockerfile: src/PictureStorageService/Dockerfile
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongodb/mongodb-community-server:6.0-ubi8
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=user
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+    volumes:
+      - db:/data/db
+    ports:
+      - 27017:27017
+
+volumes:
+  db:
