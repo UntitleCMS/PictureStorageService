@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.AspNetCore.StaticFiles;
 using MongoFramework;
 using PictureStorageService.Datas;
@@ -20,6 +21,15 @@ var connection = MongoDbConnection.FromConnectionString(DB_CONNECTION_STRING);
 
 builder.Services.AddSingleton<IContentTypeProvider, FileExtensionContentTypeProvider>();
 builder.Services.AddSingleton(new AppDbContext(connection));
+
+builder.Services.Configure<KestrelServerOptions>(opt =>
+{
+    opt.Limits.MaxRequestBodySize = 20 * 1_000_000;
+});
+builder.Services.Configure<IISServerOptions>(opt =>
+{
+    opt.MaxRequestBodyBufferSize = 20 * 1_000_000;
+});
 
 var app = builder.Build();
 
