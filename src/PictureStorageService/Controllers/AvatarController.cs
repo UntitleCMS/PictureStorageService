@@ -51,7 +51,8 @@ public class AvatarController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> AddAvatar(
         IFormFile avatar,
-        string sub)
+        string sub,
+        CancellationToken cancellationToken)
     {
         // reject if not images
         if (! avatar.ContentType.StartsWith("image/") )
@@ -62,7 +63,7 @@ public class AvatarController : ControllerBase
 
         using (Stream fileStream = new FileStream($"/img-storage/{fileName}", FileMode.Create))
         {
-            avatar.CopyTo(fileStream);
+            await avatar.CopyToAsync(fileStream, cancellationToken);
         }
 
         var a = _appDbContext.Avatars.FirstOrDefault(a => a.Id == sub);
@@ -80,7 +81,7 @@ public class AvatarController : ControllerBase
             //a.ImageName = fileName;
         }
 
-        await _appDbContext.SaveChangesAsync();
+        await _appDbContext.SaveChangesAsync(cancellationToken);
 
         return Ok();
     }
