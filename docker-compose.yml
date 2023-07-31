@@ -6,6 +6,8 @@ services:
     build:
       context: .
       dockerfile: src/PictureStorageService/Dockerfile
+    environment:
+      - DB_CONNECTION_STRING=mongodb://user:pass@mongodb/admin
     depends_on:
       - mongodb
 

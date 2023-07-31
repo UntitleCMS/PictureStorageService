@@ -18,7 +18,7 @@ public class ReadImageController : ControllerBase
     }
 
     [HttpGet("{img-name}")]
-    public IActionResult GetImgById([FromRoute(Name ="img-name")] string img_name)
+    public async Task<IActionResult> GetImgById([FromRoute(Name ="img-name")] string img_name)
     {
 
         string path = 

@@ -18,7 +18,10 @@ public class SaveImageController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult SaveImg( IFormFile img, [FromQuery]string sub)
+    public async Task<IActionResult> SaveImg( 
+        IFormFile img,
+        [FromQuery]string sub,
+        CancellationToken cancellationToken)
     {
         // reject if not images
         if (! img.ContentType.StartsWith("image/") )
@@ -29,7 +32,7 @@ public class SaveImageController : ControllerBase
         string fileName = img.B64UrlHashName();
         using (Stream fileStream = new FileStream($"/img-storage/{fileName}", FileMode.Create))
         {
-            img.CopyTo(fileStream);
+            await img.CopyToAsync(fileStream, cancellationToken);
         }
 
         var imgMeta = _appDbContext.Images.FirstOrDefault(i=>i.Id == fileName);
@@ -46,12 +49,12 @@ public class SaveImageController : ControllerBase
         {
             imgMeta.OwnersId.Add(sub);
         }
-        _appDbContext.SaveChanges();
+        await _appDbContext.SaveChangesAsync(cancellationToken);
 
         // return metadata of image
         return Ok(new
         {
-            sub = sub,
+            sub,
             img = fileName
         });
     }
