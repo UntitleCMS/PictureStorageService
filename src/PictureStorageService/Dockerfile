@@ -20,5 +20,5 @@ RUN mkdir /img-storage
 VOLUME ["/img-storage"]
 WORKDIR /app
 COPY --from=publish /app/publish .
-COPY logo.svg /img-storage/avatar-AAAAAAAAAECAAAAAAAAAAA.jpg
+COPY --from=build /src/logo.svg /img-storage/avatar-AAAAAAAAAECAAAAAAAAAAA.jpg
 ENTRYPOINT ["dotnet", "PictureStorageService.dll"]
